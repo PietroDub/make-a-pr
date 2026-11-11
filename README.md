@@ -32,7 +32,13 @@ The last line of the body is always the co-author trailer, after a blank line. C
 
 ## Open or update on GitHub
 
-Ask for the description and the skill stops at the fenced body. Ask to open the pull request, or to update the one already open, and the skill uses `gh` on the account already logged in.
+If you already said what you want, the skill does not ask again. "Abre o PR" or "sobe no GitHub" publishes. "Só o texto" stops after the body.
+
+If you did not say, the skill shows the body and asks, in the template's language, before any `git push` or `gh`:
+
+"Quer que eu suba esse PR no GitHub, ou prefere só o texto?"
+
+Your answer on the next message is the choice. The skill uses `gh` on the account already logged in only after you pick GitHub.
 
 - A pull request for the current branch is updated in place (`gh pr edit`), title and body.
 - No pull request yet: the branch is pushed with `git push -u origin HEAD`, then opened with `gh pr create`.
@@ -108,6 +114,7 @@ make-a-pr/
     ├── configure.md              # how a new project's format is saved
     ├── write-custom.md           # how a saved profile is filled
     ├── coauthor.md               # the Co-authored-by line appended to every body
+    ├── ask.md                    # GitHub or text only, skipped when already answered
     ├── publish.md                # open a GitHub PR, or update the one on this branch
     └── projects/
         └── <project-slug>/       # created when you teach a project

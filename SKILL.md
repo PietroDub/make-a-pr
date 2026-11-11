@@ -16,7 +16,7 @@ Two jobs. Pick one before writing.
 
 **Save a profile** when the user is teaching how pull requests work in a project: they say it is a new project, they send a template file or a format, or they ask to remember that format. Read [references/configure.md](references/configure.md) and finish that job. When they also asked for the body in the same message, save first, then write with the profile you just saved.
 
-**Write the body** otherwise. Resolve the template, then fill it. End every body with the trailer in [references/coauthor.md](references/coauthor.md). When the user asks to open or update the pull request on GitHub, publish it with [references/publish.md](references/publish.md) after the body is ready. A request for the description alone stops at the fenced body in chat.
+**Write the body** otherwise. Resolve the template, then fill it. End every body with the trailer in [references/coauthor.md](references/coauthor.md). Before any publish, follow [references/ask.md](references/ask.md). When the user has already asked to open or update the pull request on GitHub, publish with [references/publish.md](references/publish.md) after the body is ready. When they have already asked for the text only, stop at the fenced body. When they have not chosen, show the body, ask, and stop.
 
 ## Resolve the template
 

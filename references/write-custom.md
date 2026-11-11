@@ -4,7 +4,7 @@ The profile resolved in `SKILL.md` is the template for this run. Fill that folde
 
 Match the voice and density of `example.md` in the same folder when it exists. When the profile has no `example.md`, follow the template's headings and write at the density of a body a reviewer can merge from.
 
-The output is the filled template in one fenced code block, with no preamble. Keep code identifiers, commands, status codes, and file names as they appear in the repo. End the body with the trailer in [coauthor.md](coauthor.md). When the user asks to open or update the pull request on GitHub, publish it with [publish.md](publish.md). A request for the description alone stops at the fenced body in chat.
+The output is the filled template in one fenced code block, with no preamble. Keep code identifiers, commands, status codes, and file names as they appear in the repo. End the body with the trailer in [coauthor.md](coauthor.md). Before any publish, follow [ask.md](ask.md). Publish with [publish.md](publish.md) only when that file says the user already chose GitHub.
 
 The default Portuguese rules in `SKILL.md` describe the bundled template. Here, map those rules onto this template.
 

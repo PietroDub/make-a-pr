@@ -1,6 +1,6 @@
 # Open or update the pull request
 
-Run this after the body is filled, including the trailer from [coauthor.md](coauthor.md). Run it when the user asks to open the pull request, update it, or publish it on GitHub. A request for the description alone stops after the fenced body in chat.
+Run this after the body is filled, including the trailer from [coauthor.md](coauthor.md), and only after [ask.md](ask.md) says the user already chose GitHub. A missing choice means the body is in chat, the question has been asked, and this file stays unread.
 
 Finish when the chat contains the pull request URL. The body on GitHub matches the fenced body, without the fence.
 
