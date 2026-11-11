@@ -1,14 +1,14 @@
 # make-a-pr
 
-Agent skill that fills this team's Portuguese pull request template from the current chat, the repository in front of the agent, the branch, the diff, and that project's test setup.
+Agent skill that writes a pull request body from the current chat, the repository in front of the agent, the branch, the diff, and that project's test setup.
 
-The section labels, their order, and the checkbox lines stay the same in every repository. The project name, the test command, the task tracker, and what counts as a breaking change come from the repo being described.
+The bundled template is this team's Portuguese pull request body. Its labels, order, and checkboxes stay fixed, and every repo that has no saved profile uses it. A project with a different format gets its own profile, saved on the skill, and later pull requests for that repo fill that profile instead.
 
 The agent writes the body. It opens or updates the pull request on the forge only when you ask for that.
 
 ## When it runs
 
-The agent loads this skill when you ask for a PR description, a PR body, or pull request text, or when you invoke `make-a-pr`.
+The agent loads this skill when you ask for a PR description, a PR body, or pull request text, when you invoke `make-a-pr`, or when you teach it a new project's pull request format.
 
 Ask in the chat where the change was made, with the branch checked out. The skill reads real symbols from the diff. A branch name alone is not enough context to fill the template.
 
@@ -18,10 +18,11 @@ Triggers that match the skill description:
 - "Fill the pull request body."
 - "make-a-pr"
 - `/make-a-pr` in clients that expose skills as slash commands
+- "This is a new project. Pull requests here use this format." plus the file or the pasted template
 
 ## What you get
 
-One fenced code block, in Portuguese, with no preamble. Code identifiers, commands, status codes, and file names stay as they appear in the repository.
+One fenced code block, with no preamble. On the default template the body is Portuguese. A saved project profile uses the language and the headings of the template you saved for that repo. Code identifiers, commands, status codes, and file names stay as they appear in the repository.
 
 Anything the agent could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
 
@@ -86,11 +87,18 @@ Restart the agent session after installing so the client picks up the new skill.
 
 ```text
 make-a-pr/
-├── SKILL.md                 # instructions the agent follows
-├── README.md                # this file
+├── SKILL.md                      # which job to run, and the default template rules
+├── README.md                     # this file
 └── references/
-    ├── template.md          # empty team template; labels and order are fixed
-    └── example.md           # filled sample; voice and density only
+    ├── template.md               # default empty template; labels and order are fixed
+    ├── example.md                # default filled sample; voice and density only
+    ├── configure.md              # how a new project's format is saved
+    ├── write-custom.md           # how a saved profile is filled
+    └── projects/
+        └── <project-slug>/       # created when you teach a project
+            ├── template.md
+            ├── example.md        # only when you also sent a filled example
+            └── profile.md        # match names, language, task line, notes heading
 ```
 
 `SKILL.md` is the source of truth for the agent's behavior. This README is the human guide. When the two disagree, follow `SKILL.md` and update this file.
@@ -164,12 +172,30 @@ Every open box is explained in **Informações adicionais** in one short sentenc
 
 ## What changes between projects
 
-The template does not. These do:
+On the default template, the labels stay fixed. These still change with the repo:
 
 - The test command and how results are reported (Jest suites, pytest, `go test`, Cargo, Maven, a Makefile target).
 - Where the task id lives (ClickUp URL, `PROJ-123`, Linear).
 - What "breaking" means for that repo's consumers.
 - The project name on the first line.
+
+## Another project's format
+
+Teach the skill while you have that project open. Send the template file, or paste the format, and say that this project uses it.
+
+```text
+This is a new project. Pull requests here use this format.
+```
+
+The agent saves a profile under `references/projects/<repo-folder>/` inside the skill install (`~/.cursor/skills/make-a-pr` when that is where the skill lives). It stores:
+
+- `template.md` — the format you sent, with your labels and language
+- `example.md` — only if you also sent a filled pull request to copy the voice from
+- `profile.md` — the names that select this profile (repo folder, package name, origin repo name), the language, the task-line placeholder, and the heading where unverified notes go
+
+`references/template.md` and `references/example.md` stay the default. The next time you ask for a pull request in a repo whose folder, package name, or origin name is on that profile's `Match` list, the body follows the saved format. Every other repo still gets the Portuguese template.
+
+Send a new file for the same project to replace its template. Say to forget the project and the agent removes that folder, so the repo returns to the default. The skill writes the files and leaves the commit for when you ask.
 
 ## Sample
 

@@ -1,15 +1,33 @@
 ---
 name: make-a-pr
 description: >
-  Fill the team's Portuguese pull request template from the current chat,
-  repository, branch, diff, and test setup. Use when the user asks for a PR
-  description, PR body, pull request text, or invokes make-a-pr. Each project
-  keeps its own test command and task tracker; the template sections stay the same.
+  Write a pull request body, or save a project's PR template for next time.
+  Use when the user asks for a PR description, PR body, pull request text,
+  or invokes make-a-pr. Use when the user teaches a new project's PR format
+  and wants it saved. The bundled Portuguese template is the default; a saved
+  project profile replaces it only for that project.
 ---
 
 # Make a PR
 
-Write the pull request body by filling [references/template.md](references/template.md). Match the voice and density of [references/example.md](references/example.md). The section labels, their order, and the checkbox lines are fixed. Do not add sections, translate the labels, or swap in another team's template.
+Two jobs. Pick one before writing.
+
+**Save a profile** when the user is teaching how pull requests work in a project: they say it is a new project, they send a template file or a format, or they ask to remember that format. Read [references/configure.md](references/configure.md) and finish that job. When they also asked for the body in the same message, save first, then write with the profile you just saved.
+
+**Write the body** otherwise. Resolve the template, then fill it.
+
+## Resolve the template
+
+Match the repository in front of you to a saved profile before using the default.
+
+1. List `references/projects/*/profile.md` beside this skill. Find the skill directory with the same search order as [references/configure.md](references/configure.md).
+2. A profile matches when any line under `Match` equals, case-insensitively, the repo folder name, the package name, or the origin repo name. When the user named the project in the chat, that name wins over another match. When two profiles still match, use the one whose folder name equals the repo folder.
+3. A match means that folder's `template.md`, its `example.md` when present, and its `profile.md`. Follow [references/write-custom.md](references/write-custom.md). Leave the default section below unread.
+4. No match means the default below.
+
+## Default
+
+Write the pull request body by filling [references/template.md](references/template.md). Match the voice and density of [references/example.md](references/example.md). The section labels, their order, and the checkbox lines are fixed. Keep those labels in Portuguese. A saved profile is a separate folder under `references/projects/`. The default files stay as they are.
 
 The output is the filled template in one fenced code block, with no preamble. Anything you could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
 
@@ -86,7 +104,7 @@ Write the context a reviewer needs that does not fit the descrição: the new co
 
 ## Adapt to the project
 
-The template does not change between repos. These do:
+On this default template, the section labels stay fixed. These change with the repo:
 
 - The test command and how results are reported (Jest suites, pytest, `go test`, Cargo, Maven, a Makefile target).
 - Where the task id lives (ClickUp URL, `PROJ-123`, Linear).
@@ -94,3 +112,5 @@ The template does not change between repos. These do:
 - The project name on the first line.
 
 When a fact differs from the Moderation example, follow the repo in front of you. The example is a tone and structure reference, not a source of file names, counts, or task ids.
+
+A project whose pull request format is a different document gets its own profile under `references/projects/`. Teach it with [references/configure.md](references/configure.md). That profile supplies the template for that project. This default stays the template for every repo that has no profile.
