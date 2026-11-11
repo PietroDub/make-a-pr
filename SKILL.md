@@ -1,11 +1,13 @@
 ---
 name: make-a-pr
 description: >
-  Write a pull request body, or save a project's PR template for next time.
-  Use when the user asks for a PR description, PR body, pull request text,
-  or invokes make-a-pr. Use when the user teaches a new project's PR format
-  and wants it saved. The bundled Portuguese template is the default; a saved
-  project profile replaces it only for that project.
+  Write a pull request body, open or update the GitHub pull request, or save
+  a project's PR template for next time. Use when the user asks for a PR
+  description, PR body, pull request text, or invokes make-a-pr. Use when
+  the user asks to open or update the pull request on GitHub. Use when the
+  user teaches a new project's PR format and wants it saved. The bundled
+  Portuguese template is the default; a saved project profile replaces it
+  only for that project.
 ---
 
 # Make a PR
@@ -14,7 +16,7 @@ Two jobs. Pick one before writing.
 
 **Save a profile** when the user is teaching how pull requests work in a project: they say it is a new project, they send a template file or a format, or they ask to remember that format. Read [references/configure.md](references/configure.md) and finish that job. When they also asked for the body in the same message, save first, then write with the profile you just saved.
 
-**Write the body** otherwise. Resolve the template, then fill it.
+**Write the body** otherwise. Resolve the template, then fill it. End every body with the trailer in [references/coauthor.md](references/coauthor.md). When the user asks to open or update the pull request on GitHub, publish it with [references/publish.md](references/publish.md) after the body is ready. A request for the description alone stops at the fenced body in chat.
 
 ## Resolve the template
 
@@ -29,11 +31,9 @@ Match the repository in front of you to a saved profile before using the default
 
 Write the pull request body by filling [references/template.md](references/template.md). Match the voice and density of [references/example.md](references/example.md). The section labels, their order, and the checkbox lines are fixed. Keep those labels in Portuguese. A saved profile is a separate folder under `references/projects/`. The default files stay as they are.
 
-The output is the filled template in one fenced code block, with no preamble. Anything you could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
+The output is the filled template in one fenced code block, with no preamble, and the co-author trailer from [references/coauthor.md](references/coauthor.md) as the last line. Anything you could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
 
 Write the body in Portuguese. Keep code identifiers, commands, status codes, and file names as they appear in the repo.
-
-Produce the body only. Open or update the pull request on the forge only when the user asks for that.
 
 ## Gather context before writing
 

@@ -4,7 +4,7 @@ Agent skill that writes a pull request body from the current chat, the repositor
 
 The bundled template is this team's Portuguese pull request body. Its labels, order, and checkboxes stay fixed, and every repo that has no saved profile uses it. A project with a different format gets its own profile, saved on the skill, and later pull requests for that repo fill that profile instead.
 
-The agent writes the body. It opens or updates the pull request on the forge only when you ask for that.
+The agent writes the body. When you ask it to open or update the pull request, it does that on GitHub with `gh`, under the account already logged in. Every body ends with a `Co-authored-by` line for the application that ran the skill (Cursor or Claude Code), so a squash merge records that co-author even when the editor's own attribution toggle is off.
 
 ## When it runs
 
@@ -19,12 +19,25 @@ Triggers that match the skill description:
 - "make-a-pr"
 - `/make-a-pr` in clients that expose skills as slash commands
 - "This is a new project. Pull requests here use this format." plus the file or the pasted template
+- "Abre o pull request."
+- "Atualiza o PR que já está aberto."
 
 ## What you get
 
 One fenced code block, with no preamble. On the default template the body is Portuguese. A saved project profile uses the language and the headings of the template you saved for that repo. Code identifiers, commands, status codes, and file names stay as they appear in the repository.
 
 Anything the agent could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
+
+The last line of the body is always the co-author trailer, after a blank line. Cursor writes `Co-authored-by: Cursor <cursoragent@cursor.com>`. Claude Code writes `Co-authored-by: Claude <noreply@anthropic.com>`. The host is the application, so a Claude model running inside Cursor still signs Cursor.
+
+## Open or update on GitHub
+
+Ask for the description and the skill stops at the fenced body. Ask to open the pull request, or to update the one already open, and the skill uses `gh` on the account already logged in.
+
+- A pull request for the current branch is updated in place (`gh pr edit`), title and body.
+- No pull request yet: the branch is pushed with `git push -u origin HEAD`, then opened with `gh pr create`.
+
+The URL comes back in the chat. The skill does not merge, force-push, or change git config. Commits already on the branch stay as they are. A commit the agent creates during the same request carries the same `Co-authored-by` line. On a squash merge, GitHub uses the pull request body as the commit message, so the trailer at the end of the body is the co-author that lands on the default branch.
 
 ```text
 Nome-Do-Projeto
@@ -94,6 +107,8 @@ make-a-pr/
     ├── example.md                # default filled sample; voice and density only
     ├── configure.md              # how a new project's format is saved
     ├── write-custom.md           # how a saved profile is filled
+    ├── coauthor.md               # the Co-authored-by line appended to every body
+    ├── publish.md                # open a GitHub PR, or update the one on this branch
     └── projects/
         └── <project-slug>/       # created when you teach a project
             ├── template.md
