@@ -34,11 +34,15 @@ The last line of the body is always the co-author trailer, after a blank line. C
 
 If you already said what you want, the skill does not ask again. "Abre o PR" or "sobe no GitHub" publishes. "Só o texto" stops after the body.
 
-If you did not say, the skill shows the body and asks, in the template's language, before any `git push` or `gh`:
+If a choice is still open, the skill shows the body and then one form. In Cursor that form is the question card. Elsewhere it is a short numbered menu with the same options. A paragraph question is not used.
 
-"Quer que eu suba esse PR no GitHub, ou prefere só o texto?"
+The card only includes what you have not answered:
 
-Your answer on the next message is the choice. The skill uses `gh` on the account already logged in only after you pick GitHub.
+- `O que faço com este texto?` — Subir no GitHub, or Só o texto.
+- When the repository has no pull request template, `Gravar em .github/pull_request_template.md`, or Agora não.
+- When the repository has several templates, which file, and that card comes before the body.
+
+Your click or your next message is the choice. The skill uses `gh` on the account already logged in only after you pick GitHub.
 
 - A pull request for the current branch is updated in place (`gh pr edit`), title and body.
 - No pull request yet: the branch is pushed with `git push -u origin HEAD`, then opened with `gh pr create`.
@@ -226,9 +230,9 @@ No template means every lookup above was missing or empty, and no saved profile 
 
 The body uses the Portuguese base. After it, the chat suggests that base:
 
-`Este repositório não tem template de pull request. Procurei pull_request_template em .github/, na raiz e em docs/, a pasta PULL_REQUEST_TEMPLATE, e o .github da organização. O corpo segue o padrão base. Quer que eu grave esse padrão em .github/pull_request_template.md?`
+`Este repositório não tem template de pull request. O corpo segue o padrão base.`
 
-That sentence stays out of the pull request body. It does not appear again after you accept or refuse. On a yes, the skill writes `references/template.md` to `.github/pull_request_template.md` and leaves the commit for when you ask.
+That sentence sits above the question card, which offers to write the file or to skip. It stays out of the pull request body. The question does not appear again after you accept or refuse. On a yes, the skill writes `references/template.md` to `.github/pull_request_template.md` and leaves the commit for when you ask.
 
 ## Corrections for one project
 

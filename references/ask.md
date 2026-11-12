@@ -1,27 +1,40 @@
-# Ask before publishing
+# The question form
 
-Check this at the start of a write, before any `gh` or `git push`. The question is the gate on publishing. Skip it when the user already chose.
+Open decisions are one form, not a paragraph. Skip every decision the user already made in this chat. When none remain, show the body and do not ask.
+
+In Cursor, call AskQuestion once. Title: `Pull request`. Put only the still-open questions in that call. Do not repeat the options in prose. One sentence may sit above the form when a fact would otherwise be invisible, then the form is the last thing in the reply.
+
+Outside Cursor, use the same questions as a short numbered menu. Same options, same order. No extra commentary.
+
+Labels below are for the Portuguese template. A saved profile uses that profile's language for the labels. The ids stay the same.
+
+## Before the body
+
+Several repository templates and the user has not named one. This is the whole form. Stop. Write the body only after they choose.
+
+- id `template`. Prompt: `Qual template deste repositório?` One option per file path.
+
+## After the body
+
+Show the fenced body first. Then the form, with whichever of these are still open. Stop. Do not push, do not call `gh`, and do not write `.github/pull_request_template.md` in this turn.
+
+- id `destino`, when [the publish choice](#already-answered) is missing. Prompt: `O que faço com este texto?`
+  - `github` — `Subir no GitHub`
+  - `text` — `Só o texto`
+- id `padrao`, when [repo-template.md](repo-template.md) found no template and the user has not accepted or refused the base file. One sentence above the form: `Este repositório não tem template de pull request. O corpo segue o padrão base.`
+  - `save` — `Gravar em .github/pull_request_template.md`
+  - `skip` — `Agora não`
 
 ## Already answered
 
-Look through the user messages in this chat, including the one that started the skill. The latest choice wins.
+Look through the user messages in this chat, including the one that started the skill. The latest choice wins. A click on the form is a choice. Do not show that question again.
 
-GitHub, when they asked to open, update, publish, or upload the pull request. "Abre o PR", "sobe no GitHub", "atualiza o PR", "open the pull request" are a choice. Publish after the body is ready. Do not ask.
+GitHub: they asked to open, update, publish, or upload, or they picked `github`. "Abre o PR", "sobe no GitHub", "atualiza o PR", "open the pull request" count. Publish after the body is ready.
 
-Text only, when they asked for the description, the body, or the text and said they do not want it on GitHub. "Só o texto", "apenas a descrição", "não sobe" are a choice. Show the fenced body and stop. Do not ask.
+Text only: they asked for the description and said they do not want it on GitHub, or they picked `text`. "Só o texto", "apenas a descrição", "não sobe" count. Stop after the body.
 
-A request that only says "make-a-pr", "escreve o PR", or "qual é o texto" has no choice yet.
+`save` writes `references/template.md` to `.github/pull_request_template.md`. Leave the commit for when the user asks. `skip` writes nothing.
 
-## Not answered yet
+A request that only says "make-a-pr", "escreve o PR", or "qual é o texto" has no `destino` yet.
 
-Write the body and show the fenced block. Then ask, in the language of the template, and stop. Do not push and do not call `gh` in this turn.
-
-Default template, this wording:
-
-"Quer que eu suba esse PR no GitHub, ou prefere só o texto?"
-
-A saved profile uses the same question in that profile's language. Two answers, nothing else: upload to GitHub, or the text only.
-
-When a structured question tool is available, use it with those two options. Otherwise ask in the message. The question is the last thing in the reply.
-
-On the next message, their answer is the choice. Follow it and do not ask again. Asking a second time in the same chat, after they already answered or after you already asked and they have not replied, is a miss.
+Asking again in the same chat, after they already answered or after the form is waiting, is a miss.
