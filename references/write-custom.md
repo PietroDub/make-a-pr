@@ -1,6 +1,6 @@
 # Write from a saved profile
 
-The template for this run is the one named in `SKILL.md`: a saved profile's `template.md`, or a pull request template file from the repository. The section labels, their order, the checkbox lines, and the language come from that file.
+The template for this run is the one named in `SKILL.md`: a saved profile's `template.md`, or a pull request template file from the repository. The section labels, their order, the checkbox lines, and the language come from that file. Apply every line in the matching folder's `preferences.md`, as [preferences.md](preferences.md) describes.
 
 Match the voice and density of `example.md` in the profile folder when it exists. A repository file has no `example.md`. Follow its headings and write at the density of a body a reviewer can merge from.
 

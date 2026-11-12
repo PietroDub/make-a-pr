@@ -5,18 +5,22 @@ description: >
   a project's PR template for next time. Use when the user asks for a PR
   description, PR body, pull request text, or invokes make-a-pr. Use when
   the user asks to open or update the pull request on GitHub. Use when the
-  user teaches a new project's PR format and wants it saved. The bundled
-  Portuguese template is the fallback. A saved project profile wins.
-  Otherwise a pull request template already in the repository is the format.
+  user teaches a new project's PR format and wants it saved. Use when
+  the user states a lasting correction for the next pull request in
+  this project. The bundled Portuguese template is the fallback. A saved
+  project profile with its own template wins. Otherwise a pull request
+  template already in the repository is the format.
 ---
 
 # Make a PR
 
-Two jobs. Pick one before writing.
+Two jobs, plus a correction. Pick before writing.
 
 **Save a profile** when the user is teaching how pull requests work in a project: they say it is a new project, they send a template file or a format, or they ask to remember that format. Read [references/configure.md](references/configure.md) and finish that job. When they also asked for the body in the same message, save first, then write with the profile you just saved.
 
-**Write the body** otherwise. Resolve the template, then fill it. End every body with the trailer in [references/coauthor.md](references/coauthor.md). Before any publish, follow [references/ask.md](references/ask.md). When the user has already asked to open or update the pull request on GitHub, publish with [references/publish.md](references/publish.md) after the body is ready. When they have already asked for the text only, stop at the fenced body. When they have not chosen, show the body, ask, and stop.
+**Save a correction** when the user states a lasting rule for this project. Read [references/preferences.md](references/preferences.md). When the message also asks to rewrite this body, save the line and rewrite.
+
+**Write the body** otherwise. Resolve the template, then fill it. Apply every line in the matching folder's `preferences.md`, as [references/preferences.md](references/preferences.md) describes. End every body with the trailer in [references/coauthor.md](references/coauthor.md). Before any publish, follow [references/ask.md](references/ask.md). When the user has already asked to open or update the pull request on GitHub, publish with [references/publish.md](references/publish.md) after the body is ready. When they have already asked for the text only, stop at the fenced body. When they have not chosen, show the body, ask, and stop.
 
 ## Resolve the template
 
@@ -24,13 +28,14 @@ Match a saved profile first, then a template the repository already has, then th
 
 1. List `references/projects/*/profile.md` beside this skill. Find the skill directory with the same search order as [references/configure.md](references/configure.md).
 2. A profile matches when any line under `Match` equals, case-insensitively, the repo folder name, the package name, or the origin repo name. When the user named the project in the chat, that name wins over another match. When two profiles still match, use the one whose folder name equals the repo folder.
-3. A match means that folder's `template.md`, its `example.md` when present, and its `profile.md`. Follow [references/write-custom.md](references/write-custom.md). Leave the default section below unread. When the repository also has a pull request template, say once, before the body, that the saved profile was the one used.
-4. No profile: follow [references/repo-template.md](references/repo-template.md). A file there is this run's template. Follow [references/write-custom.md](references/write-custom.md) and leave the default section unread.
-5. No profile and no repository template: the default below, plus the suggestion in [references/repo-template.md](references/repo-template.md).
+3. A folder that contains `template.md` supplies that file, its `example.md` when present, and its `profile.md`. Follow [references/write-custom.md](references/write-custom.md). Leave the default section below unread. When the repository also has a pull request template, say once, before the body, that the saved profile was the one used.
+4. A folder with no `template.md` does not replace the format. Continue below. Its `preferences.md` still applies.
+5. No `template.md` in the folder: follow [references/repo-template.md](references/repo-template.md). A file there is this run's template. Follow [references/write-custom.md](references/write-custom.md) and leave the default section unread.
+6. No `template.md` and no repository template: the default below, plus the suggestion in [references/repo-template.md](references/repo-template.md).
 
 ## Default
 
-Write the pull request body by filling [references/template.md](references/template.md). Match the voice and density of [references/example.md](references/example.md). The section labels, their order, and the checkbox lines are fixed. Keep those labels in Portuguese. A saved profile is a separate folder under `references/projects/`. The default files stay as they are.
+Write the pull request body by filling [references/template.md](references/template.md). Match the voice and density of [references/example.md](references/example.md). The section labels, their order, and the checkbox lines are fixed. Keep those labels in Portuguese. A saved profile is a separate folder under `references/projects/`. The default files stay as they are. Lines in that project's `preferences.md` apply on top of this template.
 
 The output is the filled template in one fenced code block, with no preamble, and the co-author trailer from [references/coauthor.md](references/coauthor.md) as the last line. Anything you could not verify goes inside **Informações adicionais**, in Portuguese, as part of the body.
 

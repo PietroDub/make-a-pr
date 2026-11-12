@@ -117,12 +117,14 @@ make-a-pr/
     ├── coauthor.md               # the Co-authored-by line appended to every body
     ├── ask.md                    # GitHub or text only, skipped when already answered
     ├── branch-sync.md            # compare the branch to the base on every body
+    ├── preferences.md            # lasting corrections for one project
     ├── publish.md                # open a GitHub PR, or update the one on this branch
     └── projects/
         └── <project-slug>/       # created when you teach a project
             ├── template.md
             ├── example.md        # only when you also sent a filled example
-            └── profile.md        # match names, language, task line, notes heading
+            ├── profile.md        # match names, language, task line, notes heading
+            └── preferences.md    # lasting corrections; the template files stay as they are
 ```
 
 `SKILL.md` is the source of truth for the agent's behavior. This README is the human guide. When the two disagree, follow `SKILL.md` and update this file.
@@ -205,7 +207,7 @@ On the default template, the labels stay fixed. These still change with the repo
 
 ## Template the repository already has
 
-A saved profile still wins. With no profile, the skill looks for the file GitHub itself would use. Names are not case sensitive. It reads the default branch, because that is the branch GitHub uses, and the working tree when that branch is not available locally.
+A saved profile that contains `template.md` still wins over the repository file. A folder that only has `preferences.md` does not. With no `template.md`, the skill looks for the file GitHub itself would use. Names are not case sensitive. It reads the default branch, because that is the branch GitHub uses, and the working tree when that branch is not available locally.
 
 The first non-empty file wins:
 
@@ -227,6 +229,14 @@ The body uses the Portuguese base. After it, the chat suggests that base:
 
 That sentence stays out of the pull request body. It does not appear again after you accept or refuse. On a yes, the skill writes `references/template.md` to `.github/pull_request_template.md` and leaves the commit for when you ask.
 
+## Corrections for one project
+
+After a body, a lasting rule is stored in `references/projects/<projeto>/preferences.md`. One sentence per line. The Portuguese template and a repository `pull_request_template` stay untouched.
+
+"Daqui pra frente a descrição fica em um parágrafo" rewrites this body and appends that line. "Encurta a descrição" rewrites this body only. A task id, a test count, and a fact that is true only of this diff are not stored.
+
+A project that had no folder gets `profile.md` plus `preferences.md`, and no `template.md`. The next body still uses the repository template or the Portuguese base, with those lines applied on top. The chat names the path and the line, outside the pull request. Saying to forget a line deletes that line.
+
 ## Another project's format
 
 Teach the skill while you have that project open. Send the template file, or paste the format, and say that this project uses it.
@@ -241,7 +251,7 @@ The agent saves a profile under `references/projects/<repo-folder>/` inside the 
 - `example.md` — only if you also sent a filled pull request to copy the voice from
 - `profile.md` — the names that select this profile (repo folder, package name, origin repo name), the language, the task-line placeholder, and the heading where unverified notes go
 
-`references/template.md` and `references/example.md` stay the bundled base. The next time you ask for a pull request in a repo whose folder, package name, or origin name is on that profile's `Match` list, the body follows the saved format, even when the repo also has a `pull_request_template` file. A repo with no profile and no template file gets the Portuguese base, with the suggestion above.
+`references/template.md` and `references/example.md` stay the bundled base. The next time you ask for a pull request in a repo whose folder, package name, or origin name is on that profile's `Match` list, the body follows the saved `template.md`, even when the repo also has a `pull_request_template` file. A repo with no `template.md` and no template file gets the Portuguese base. Lines in `preferences.md` apply on top of whichever format was chosen.
 
 Send a new file for the same project to replace its template. Say to forget the project and the agent removes that folder, so the repo returns to the default. The skill writes the files and leaves the commit for when you ask.
 
