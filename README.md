@@ -118,6 +118,7 @@ make-a-pr/
     ├── ask.md                    # GitHub or text only, skipped when already answered
     ├── branch-sync.md            # compare the branch to the base on every body
     ├── preferences.md            # lasting corrections for one project
+    ├── tests.md                  # which summary line holds the count for each runner
     ├── publish.md                # open a GitHub PR, or update the one on this branch
     └── projects/
         └── <project-slug>/       # created when you teach a project
@@ -171,7 +172,7 @@ Before writing, the agent reads enough of the change to name real symbols.
 3. **Commits and diff.** Commits on this branch against the base, then the hunks that change behavior. A stat line is not enough for the descrição or for the self-review checkbox. Large diffs are grouped by behavior. Lockfiles and generated files are skipped unless the pull request is about them.
 4. **The chat.** Decisions, out-of-scope notes, task links, and commands already run. What you said and what the diff shows come first.
 5. **Task id.** ClickUp, Jira, or Linear, looked up in the chat, the branch name, and the commit messages. A ClickUp line looks like `Implementa [#1gaax8j7rwb](https://app.clickup.com/t/36971573/1gaax8j7rwb)`. The team id is reused when it already appears in the conversation or the repo. With no task id, the line stays `Implementa [#TASK_ID](CLICKUP_URL)` and **Informações adicionais** says: `Não há ID do ClickUp nesta conversa: troca TASK_ID pelo número da task antes de abrir o PR.`
-6. **Tests.** The command this repository actually runs. The agent checks, in order: a command and result already in the chat or terminal; then `package.json` scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `Makefile`, `justfile`, or the CI workflow.
+6. **Tests.** The command comes from the chat or the terminal when a run is already there, otherwise from `package.json` scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `Makefile`, `justfile`, or the CI workflow. A count is copied from that run's summary line. The skill does not start a suite to fill this paragraph.
 7. **Docs and branch sync.** Required for two checklist items. Rules below.
 
 ### How testing is reported
@@ -182,7 +183,7 @@ Before writing, the agent reads enough of the change to name real symbols.
 | Tests exist and nobody ran them | `Não executei os testes nesta sessão.` plus the command the repo expects. |
 | The repo has no automated suite | What was checked manually, or that nothing was run. |
 
-Suite names, counts, and a passing result appear only when that run happened.
+Suite names, counts, and a passing result appear only when that run happened. Jest prints `Test Suites:` and `Tests:`. Vitest prints `Test Files` and `Tests`. pytest prints `N passed` on the last line. Cargo prints `test result:`. Maven prints `Tests run:`. PHPUnit prints `OK (N tests)`. `go test` prints `ok` or `FAIL` per package and has no test total, so the sentence names the packages.
 
 ### Checklist evidence
 

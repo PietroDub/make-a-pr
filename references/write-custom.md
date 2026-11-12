@@ -30,7 +30,7 @@ A breaking-change question in the template gets exactly one answer. Mark the aff
 
 ## How it was tested
 
-Say how this project was tested, with the real command, in the template's language.
+Say how this project was tested, with the real command, in the template's language. Read the count from [tests.md](tests.md). A number in the body is a number the run printed.
 
 - When the suite ran in this chat or the terminal, name the command and the outcome: the kind of test, the command, then the counts you actually saw. Include end-to-end or integration only when those ran.
 - When tests exist and nobody ran them, say they were not run in this session and name the command the repo expects. Invent no suites, counts, or passing result.

@@ -50,7 +50,7 @@ Read enough of the change to name real symbols. Do not fill the template from th
 3. Commits on this branch against the base, then the diff. Read the hunks that change behavior. A stat line is not enough for the descrição or for the self-review checkbox.
 4. The chat. Decisions, out-of-scope notes, task links, and commands already run. Prefer what the user said and what the diff shows over a guess.
 5. Task id. Look in the chat, the branch name, and commit messages for a ClickUp, Jira, or Linear id. For ClickUp, the link looks like `Implementa [#1gaax8j7rwb](https://app.clickup.com/t/36971573/1gaax8j7rwb)`. Reuse a team id that already appears in the conversation or the repo. If there is no task id, leave `Implementa [#TASK_ID](CLICKUP_URL)` and write in **Informações adicionais**: `Não há ID do ClickUp nesta conversa: troca TASK_ID pelo número da task antes de abrir o PR.` Never invent an id.
-6. Tests. Find how this repository runs tests. Do not assume npm. Check, in order: a command and result already in the chat or terminal; then `package.json` scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `Makefile`, `justfile`, or the CI workflow. Record the command you would actually run here.
+6. Tests. Find how this repository runs tests, then read a count only from output that is already in the chat or the terminal. [references/tests.md](references/tests.md) names the summary line for each runner. Do not assume npm. Check, in order: a command and result already in the chat or terminal; then `package.json` scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `Makefile`, `justfile`, or the CI workflow. Record the command you would actually run here.
 7. Docs and branch sync. Docs follow the checklist rule below. The branch comparison runs on every body, as [references/branch-sync.md](references/branch-sync.md) describes.
 
 If the diff is large, group it by behavior and read the files that implement each behavior. Skip lockfiles and generated files unless the PR is about them.
@@ -88,7 +88,7 @@ Check exactly one of the two.
 
 ## Como foi testado?
 
-Say how this project was tested, with the real command.
+Say how this project was tested, with the real command. Read the count from [references/tests.md](references/tests.md). A number in the body is a number the run printed.
 
 - If the suite ran in this chat or the terminal, name the command and the outcome in the example's shape: what kind of test, the command, then the counts you actually saw (`28 suites, 232 testes, todos passando.`). Include e2e or integration only when those ran.
 - If tests exist but nobody ran them, write `Não executei os testes nesta sessão.` and name the command the repo expects. Do not invent suites, counts, or a passing result.
