@@ -2,7 +2,7 @@
 
 Agent skill that writes a pull request body from the current chat, the repository in front of the agent, the branch, the diff, and that project's test setup.
 
-The bundled template is this team's Portuguese pull request body. Its labels, order, and checkboxes stay fixed, and every repo that has no saved profile uses it. A project with a different format gets its own profile, saved on the skill, and later pull requests for that repo fill that profile instead.
+The bundled template is this team's Portuguese pull request body. The skill picks a format in this order: a profile you saved for that project, then a pull request template already in the repository, then the Portuguese template. The Portuguese labels stay fixed for that last case.
 
 The agent writes the body. When you ask it to open or update the pull request, it does that on GitHub with `gh`, under the account already logged in. Every body ends with a `Co-authored-by` line for the application that ran the skill (Cursor or Claude Code), so a squash merge records that co-author even when the editor's own attribution toggle is off.
 
@@ -112,7 +112,8 @@ make-a-pr/
     ├── template.md               # default empty template; labels and order are fixed
     ├── example.md                # default filled sample; voice and density only
     ├── configure.md              # how a new project's format is saved
-    ├── write-custom.md           # how a saved profile is filled
+    ├── write-custom.md           # how a saved profile or a repo template is filled
+    ├── repo-template.md          # find the repository's own template, or suggest the base
     ├── coauthor.md               # the Co-authored-by line appended to every body
     ├── ask.md                    # GitHub or text only, skipped when already answered
     ├── publish.md                # open a GitHub PR, or update the one on this branch
@@ -201,6 +202,30 @@ On the default template, the labels stay fixed. These still change with the repo
 - What "breaking" means for that repo's consumers.
 - The project name on the first line.
 
+## Template the repository already has
+
+A saved profile still wins. With no profile, the skill looks for the file GitHub itself would use. Names are not case sensitive. It reads the default branch, because that is the branch GitHub uses, and the working tree when that branch is not available locally.
+
+The first non-empty file wins:
+
+1. `.github/pull_request_template.md` or `.txt`
+2. `pull_request_template.md` or `.txt` in the repository root
+3. `docs/pull_request_template.md` or `.txt`
+
+If none of those exist, it looks in `PULL_REQUEST_TEMPLATE/` under `.github/`, the root, and `docs/`. One file there is the format. Several files: the skill asks which one, and does not fall through to the Portuguese template. It also checks the organization's `.github` repository when the project itself has nothing.
+
+The body then follows that file's headings and language. The chat names the path before the body. `references/template.md` stays as it is.
+
+## When the repository has no template
+
+No template means every lookup above was missing or empty, and no saved profile matches. The skill recognizes that by the search, not by the branch name.
+
+The body uses the Portuguese base. After it, the chat suggests that base:
+
+`Este repositório não tem template de pull request. Procurei pull_request_template em .github/, na raiz e em docs/, a pasta PULL_REQUEST_TEMPLATE, e o .github da organização. O corpo segue o padrão base. Quer que eu grave esse padrão em .github/pull_request_template.md?`
+
+That sentence stays out of the pull request body. It does not appear again after you accept or refuse. On a yes, the skill writes `references/template.md` to `.github/pull_request_template.md` and leaves the commit for when you ask.
+
 ## Another project's format
 
 Teach the skill while you have that project open. Send the template file, or paste the format, and say that this project uses it.
@@ -215,7 +240,7 @@ The agent saves a profile under `references/projects/<repo-folder>/` inside the 
 - `example.md` — only if you also sent a filled pull request to copy the voice from
 - `profile.md` — the names that select this profile (repo folder, package name, origin repo name), the language, the task-line placeholder, and the heading where unverified notes go
 
-`references/template.md` and `references/example.md` stay the default. The next time you ask for a pull request in a repo whose folder, package name, or origin name is on that profile's `Match` list, the body follows the saved format. Every other repo still gets the Portuguese template.
+`references/template.md` and `references/example.md` stay the bundled base. The next time you ask for a pull request in a repo whose folder, package name, or origin name is on that profile's `Match` list, the body follows the saved format, even when the repo also has a `pull_request_template` file. A repo with no profile and no template file gets the Portuguese base, with the suggestion above.
 
 Send a new file for the same project to replace its template. Say to forget the project and the agent removes that folder, so the repo returns to the default. The skill writes the files and leaves the commit for when you ask.
 

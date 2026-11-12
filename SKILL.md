@@ -6,8 +6,8 @@ description: >
   description, PR body, pull request text, or invokes make-a-pr. Use when
   the user asks to open or update the pull request on GitHub. Use when the
   user teaches a new project's PR format and wants it saved. The bundled
-  Portuguese template is the default; a saved project profile replaces it
-  only for that project.
+  Portuguese template is the fallback. A saved project profile wins.
+  Otherwise a pull request template already in the repository is the format.
 ---
 
 # Make a PR
@@ -20,12 +20,13 @@ Two jobs. Pick one before writing.
 
 ## Resolve the template
 
-Match the repository in front of you to a saved profile before using the default.
+Match a saved profile first, then a template the repository already has, then the default.
 
 1. List `references/projects/*/profile.md` beside this skill. Find the skill directory with the same search order as [references/configure.md](references/configure.md).
 2. A profile matches when any line under `Match` equals, case-insensitively, the repo folder name, the package name, or the origin repo name. When the user named the project in the chat, that name wins over another match. When two profiles still match, use the one whose folder name equals the repo folder.
-3. A match means that folder's `template.md`, its `example.md` when present, and its `profile.md`. Follow [references/write-custom.md](references/write-custom.md). Leave the default section below unread.
-4. No match means the default below.
+3. A match means that folder's `template.md`, its `example.md` when present, and its `profile.md`. Follow [references/write-custom.md](references/write-custom.md). Leave the default section below unread. When the repository also has a pull request template, say once, before the body, that the saved profile was the one used.
+4. No profile: follow [references/repo-template.md](references/repo-template.md). A file there is this run's template. Follow [references/write-custom.md](references/write-custom.md) and leave the default section unread.
+5. No profile and no repository template: the default below, plus the suggestion in [references/repo-template.md](references/repo-template.md).
 
 ## Default
 

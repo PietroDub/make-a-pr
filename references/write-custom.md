@@ -1,8 +1,8 @@
 # Write from a saved profile
 
-The profile resolved in `SKILL.md` is the template for this run. Fill that folder's `template.md`. The section labels, their order, the checkbox lines, and the language come from that file.
+The template for this run is the one named in `SKILL.md`: a saved profile's `template.md`, or a pull request template file from the repository. The section labels, their order, the checkbox lines, and the language come from that file.
 
-Match the voice and density of `example.md` in the same folder when it exists. When the profile has no `example.md`, follow the template's headings and write at the density of a body a reviewer can merge from.
+Match the voice and density of `example.md` in the profile folder when it exists. A repository file has no `example.md`. Follow its headings and write at the density of a body a reviewer can merge from.
 
 The output is the filled template in one fenced code block, with no preamble. Keep code identifiers, commands, status codes, and file names as they appear in the repo. End the body with the trailer in [coauthor.md](coauthor.md). Before any publish, follow [ask.md](ask.md). Publish with [publish.md](publish.md) only when that file says the user already chose GitHub.
 
