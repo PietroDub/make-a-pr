@@ -46,7 +46,7 @@ Read enough of the change to name real symbols. Do not fill the template from th
 4. The chat. Decisions, out-of-scope notes, task links, and commands already run. Prefer what the user said and what the diff shows over a guess.
 5. Task id. Look in the chat, the branch name, and commit messages for a ClickUp, Jira, or Linear id. For ClickUp, the link looks like `Implementa [#1gaax8j7rwb](https://app.clickup.com/t/36971573/1gaax8j7rwb)`. Reuse a team id that already appears in the conversation or the repo. If there is no task id, leave `Implementa [#TASK_ID](CLICKUP_URL)` and write in **Informações adicionais**: `Não há ID do ClickUp nesta conversa: troca TASK_ID pelo número da task antes de abrir o PR.` Never invent an id.
 6. Tests. Find how this repository runs tests. Do not assume npm. Check, in order: a command and result already in the chat or terminal; then `package.json` scripts, `pyproject.toml`, `go.mod`, `Cargo.toml`, `composer.json`, `Makefile`, `justfile`, or the CI workflow. Record the command you would actually run here.
-7. Docs and branch sync, because two checklist items depend on them. See the checklist rules below.
+7. Docs and branch sync. Docs follow the checklist rule below. The branch comparison runs on every body, as [references/branch-sync.md](references/branch-sync.md) describes.
 
 If the diff is large, group it by behavior and read the files that implement each behavior. Skip lockfiles and generated files unless the PR is about them.
 
@@ -97,7 +97,7 @@ Check a box only with the evidence below. An empty box is the correct output whe
 - Autorrevisão — you read the behavior hunks, not only the stat or the commit list. Leave it open when you only skimmed.
 - Readme/documentações — check when docs were updated, or when you looked and the change needs no doc update. Leave it open when you did not look, as the example does.
 - Testes — check when this bugfix or feature has tests added or updated in the diff. Leave it open when the tests were not added, when you could not see them, or when the change is docs-only and you should say that instead of pretending tests were added.
-- Branch atualizada — check only after comparing the branch to the target tip (`git fetch` and `git rev-list --left-right --count <base>...<branch>`, or the forge's behind count). A clean working tree is not the same thing. The example leaves this open on purpose. Do not check it from memory.
+- Branch atualizada — decided by [references/branch-sync.md](references/branch-sync.md), which runs on every body. Check it only when `behind` is 0. A clean working tree is a separate fact. The count goes in **Informações adicionais** as `A branch está <behind> commits atrás de <base>.`
 
 ## Informações adicionais
 

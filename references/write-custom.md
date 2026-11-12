@@ -44,7 +44,7 @@ Check a box only with the evidence below. An empty box is the correct output whe
 - Self-review — you read the behavior hunks, not only the stat or the commit list. Leave it open when you only skimmed.
 - Docs — check when docs were updated, or when you looked and the change needs no doc update. Leave it open when you did not look.
 - Tests — check when this bugfix or feature has tests added or updated in the diff. Leave it open when the tests were not added, when you could not see them, or when the change is docs-only.
-- Branch updated — check only after comparing the branch to the target tip (`git fetch` and `git rev-list --left-right --count <base>...<branch>`, or the forge's behind count). A clean working tree is a separate fact. Leave it open until that comparison exists.
+- Branch updated — decided by [branch-sync.md](branch-sync.md), which runs on every body. Check it only when `behind` is 0. A clean working tree is a separate fact. The notes heading states that integer and the base name.
 
 Map each of those bars onto the checkbox the template actually has. A template that has no checklist gets the same facts in the notes heading, as sentences, and no invented checkbox block.
 

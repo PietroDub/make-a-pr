@@ -1,4 +1,4 @@
-Filled example. Copy the shape and the voice, not the facts. The boxes below are the ones this change actually earned: funcionalidade is the primary type, breaking change is Não, the README item stays open, and the branch-sync item stays open because nobody compared the branch to the target.
+Filled example. Copy the shape and the voice, not the facts. The boxes below are the ones this change actually earned: funcionalidade is the primary type, breaking change is Não, and the README item stays open. The branch box is open in this sample. On a real run, [branch-sync.md](branch-sync.md) decides that box from the `behind` count.
 
 Moderation-Microservice
 Descrição

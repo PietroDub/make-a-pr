@@ -116,6 +116,7 @@ make-a-pr/
     ├── repo-template.md          # find the repository's own template, or suggest the base
     ├── coauthor.md               # the Co-authored-by line appended to every body
     ├── ask.md                    # GitHub or text only, skipped when already answered
+    ├── branch-sync.md            # compare the branch to the base on every body
     ├── publish.md                # open a GitHub PR, or update the one on this branch
     └── projects/
         └── <project-slug>/       # created when you teach a project
@@ -189,7 +190,7 @@ Suite names, counts, and a passing result appear only when that run happened.
 | Autorrevisão | The agent read the behavior hunks, not only the stat or the commit list. Left open when the diff was only skimmed. |
 | Readme/documentações | Docs were updated, or the agent looked and the change needs no doc update. Left open when nobody looked. |
 | Testes | This bugfix or feature has tests added or updated in the diff. Left open when tests were not added, when the agent could not see them, or when the change is docs-only. |
-| Branch atualizada | After comparing the branch to the target tip: `git fetch` and `git rev-list --left-right --count <base>...<branch>`, or the forge's behind count. A clean working tree is a different fact. Left open until that comparison exists. |
+| Branch atualizada | After `git fetch` and `git rev-list --left-right --count origin/<base>...HEAD` on every body. Checked only when the first number, commits behind the base, is 0. **Informações adicionais** always states that number. |
 
 Every open box is explained in **Informações adicionais** in one short sentence.
 
